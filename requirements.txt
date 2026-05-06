@@ -1,0 +1,6 @@
+torch
+torchvision
+pillow
+timm
+ultralytics
+streamlit
