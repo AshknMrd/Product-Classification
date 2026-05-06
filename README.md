@@ -134,6 +134,13 @@ python final_solution/train_eval.py \
   --val-data data/val \
   --device mps
 ```
+
+Run the Streamlit app for prediction of a single uploded case:
+
+```bash
+streamlit run streamlit_app.py
+```
+
 Or, more simply, change to the project directory and run the bash script `./run_train_eval.sh`. This will create a local .venv environment if it does not already exist, and then run the project.
 
 Outputs are saved under:
