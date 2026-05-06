@@ -3,7 +3,7 @@
     "model_name": "resnet50",
     "unknown_threshold": 0.45,
     "pretrained": true,
-    "epochs": 1,
+    "epochs": 100,
     "patience": 15,
     "imgsz": 224,
     "batch": 16,

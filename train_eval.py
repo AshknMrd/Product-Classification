@@ -1,21 +1,18 @@
 """Train and evaluate a selected grocery product classification model."""
 
 from __future__ import annotations
-
 import argparse
 import csv
 import json
 import math
 import time
 from pathlib import Path
-
 import torch
 from PIL import Image
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from utils import *
-
 
 ROOT = Path(__file__).resolve().parent
 RUNS = ROOT / "runs"

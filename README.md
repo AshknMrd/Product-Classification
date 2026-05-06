@@ -85,11 +85,7 @@ This approach is more appropriate than forcing every validation image into one o
 
 ## Important Caveat And Results
 
-A sample belonging to the validation-only class should be counted as a correct prediction when it is predicted as `unknown`.
-
-Thus, since one validation class is absent from the training set, the task is treated as a partially open-set classification problem. The model is trained on the 9 synthetic training classes. During inference, samples with low maximum confidence are assigned to `unknown`, representing products that do not confidently belong to any known training class. This allows the model to classify the shared classes while avoiding overconfident incorrect predictions for the validation-only class.
-
-Using ResNet50 in this scenario resulted in an accuracy of 0.754, with the following details:
+A sample belonging to the validation-only class should be counted as a correct prediction when it is predicted as `unknown`. Using ResNet50 in this scenario resulted in an accuracy of **0.754**, with the following details:
 
 <figure>
   <img src="imgs/learning_curves_resnet_c9.png" alt="Learning curves ResNet50 - 9 classes" width="600">
@@ -106,18 +102,11 @@ Using ResNet50 in this scenario resulted in an accuracy of 0.754, with the follo
   <figcaption><b>Figure 6.</b> Per-class validation metrics for ResNet50 - 9 classes.</figcaption>
 </figure>
 
-## Usage Instructions
+## Instructions
 
 Select the model in `train_config.json` with `train.model_name`. Supported models are `swin-tiny`, `convnext-tiny`, `resnet50`, `mobilenetv4s`, `mobilenetv4m`, `mobilenetv4hm`, `yolo11n`, `yolo11s`, `yolo11m`, `yolo26n`, `yolo26s`, `yolo26m`, `yolov8n`, `yolov8s`, and `yolov8m`.
 
 The `unknown_threshold` in `train_config.json` controls rejection. If the highest predicted probability is below this threshold, the prediction is saved as `unknown`.
-
-Validation is counted correct when:
-
-- a shared train/validation class is predicted as itself
-- a validation-only class, such as `pensoHigienico_Evax`, is predicted as `unknown`
-
-Train-only classes, such as `cafeAlma_Nicola`, are learned during training but do not contribute to validation accuracy when absent from validation.
 
 Train and evaluate:
 
@@ -141,10 +130,12 @@ Run the Streamlit app for prediction of a single uploded case:
 streamlit run streamlit_app.py
 ```
 
-Or, more simply, change to the project directory and run the bash script `./run_train_eval.sh`. This will create a local .venv environment if it does not already exist, and then run the project.
+Or, more simply, change to the project directory and run the bash script `./run_train_eval.sh {train|validation|streamlit}`. This will create a local .venv environment if it does not already exist, and then run the project.
 
 Outputs are saved under:
 
 ```text
 runs/<model_name>/
 ```
+
+**Note:** To track the experiments, I usually use Weights & Biases, but due to limited time, I could not rerun the experiments. However, I will try to have that ready for our next meeting.
