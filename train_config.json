@@ -1,7 +1,7 @@
 {
   "train": {
     "model_name": "resnet50",
-    "unknown_threshold": 0.45,
+    "unknown_threshold": 0.3,
     "pretrained": true,
     "epochs": 100,
     "patience": 15,

@@ -319,6 +319,7 @@ def predict_val(
     config: dict,
     device: torch.device,
 ) -> tuple[list[dict], dict]:
+    model.eval()
     tfm = eval_transform(config)
     threshold = unknown_threshold(config)
     true_classes = classes_from(val_dir)
@@ -360,6 +361,7 @@ def evaluate_open_set_metrics(
     device: torch.device,
     criterion,
 ) -> dict:
+    model.eval()
     _, details = predict_val(model, classes, val_dir, config, device)
     class_to_i = {name: i for i, name in enumerate(classes)}
     tfm = eval_transform(config)
