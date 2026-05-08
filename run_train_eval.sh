@@ -16,19 +16,26 @@ fi
 source "$VENV_DIR/bin/activate"
 
 if [ "$MODE" = "train" ]; then
-  python "$BASE_DIR/train_eval.py" --device mps
+  python "$BASE_DIR/train_eval.py" \
+    --run-folder "$BASE_DIR/runs/resnet50" \
+    --model-name resnet50 \
+    --threshold 0.0 \
+    --device mps \
+    --wandb 
 
 elif [ "$MODE" = "validation" ]; then
   python "$BASE_DIR/train_eval.py" \
     --val-only \
-    --weights "$BASE_DIR/../runs/runs-final/resnet50/train/weights/best.pt" \
+    --model-name resnet50 \
+    --threshold 0.0 \
+    --weights "$BASE_DIR/runs/resnet50/train/weights/best.pt" \
     --val-data "$BASE_DIR/../data/val" \
     --device mps
 
-elif [ "$MODE" = "streamlit" ]; then
-  streamlit run "$BASE_DIR/streamlit_app.py"
+elif [ "$MODE" = "prediction-app" ]; then
+  streamlit run "$BASE_DIR/prediction_app.py"
 
 else
-  echo "Usage: ./run_train_eval.sh {train|validation|streamlit}"
+  echo "Usage: ./run_train_eval.sh {train|validation|prediction-app}"
   exit 1
 fi

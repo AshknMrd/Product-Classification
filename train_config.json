@@ -1,9 +1,9 @@
 {
   "train": {
-    "model_name": "resnet50",
+    "model_name": "mobilenetv4s",
     "unknown_threshold": 0.3,
     "pretrained": true,
-    "epochs": 100,
+    "epochs": 2,
     "patience": 15,
     "imgsz": 224,
     "batch": 16,

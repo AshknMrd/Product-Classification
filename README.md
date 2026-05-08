@@ -1,5 +1,10 @@
 # Product-Classification Solution
 
+## Problem:
+The goal is to build a Python/PyTorch-based neural network solution for classifying product images into 9 classes, using a synthetic training set and a real-image validation set stored in /data. The main challenge is that the train and validation distributions differ intentionally: the training data contains only synthetic images, while the validation data contains only real images, and the product selections may not fully match between the two sets. The validation data must be used only for evaluation, not merged into training, so the task requires exploring strategies that improve generalization from synthetic to real images
+
+## Solution:
+
 The task is grocery product classification. The training data is synthetic, while the validation data consists of real product images. Therefore, the main challenge is domain generalization: the trained model must learn from synthetic examples and generalize to real-world validation images.
 
 This is not treated as an object detection problem. In a detection setting, all items in a shopping basket would first need to be detected, segmented or masked, cropped, and then classified. Here, each input image is already cropped to a single product. Therefore, the solution uses image classification directly and does not require the `*_mask.png` files.
@@ -111,7 +116,12 @@ The `unknown_threshold` in `train_config.json` controls rejection. If the highes
 Train and evaluate:
 
 ```bash
-python final_solution/train_eval.py --device mps
+python "train_eval.py" \
+    --run-folder "runs/resnet50" \
+    --model-name resnet50 \
+    --threshold 0.0 \
+    --device mps \
+    --wandb 
 ```
 
 Validation only:
@@ -119,18 +129,20 @@ Validation only:
 ```bash
 python final_solution/train_eval.py \
   --val-only \
-  --weights runs/runs-final/resnet50/train/weights/best.pt \
+  --model-name resnet50 \
+  --threshold 0.0 \
+  --weights runs/resnet50/train/weights/best.pt \
   --val-data data/val \
   --device mps
 ```
 
-Run the Streamlit app for prediction of a single uploded case:
+Run the web-based prediction application for prediction of a single uploded case:
 
 ```bash
-streamlit run streamlit_app.py
+streamlit run prediction_app.py
 ```
 
-Or, more simply, change to the project directory and run the bash script `./run_train_eval.sh {train|validation|streamlit}`. This will create a local .venv environment if it does not already exist, and then run the project.
+Or, more simply, change to the project directory and run the bash script `./run_train_eval.sh {train|validation|prediction-app}`. This will create a local .venv environment if it does not already exist, and then run the project.
 
 Outputs are saved under:
 
