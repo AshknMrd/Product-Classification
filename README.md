@@ -150,4 +150,5 @@ Outputs are saved under:
 runs/<model_name>/
 ```
 
-**Note:** To track the experiments, I usually use Weights & Biases, but due to limited time, I could not rerun the experiments. However, I will try to have that ready for our next meeting.
+© Ashkan M.,  
+Released under the MIT License
